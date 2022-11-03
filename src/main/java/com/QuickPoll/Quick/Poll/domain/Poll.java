@@ -1,18 +1,22 @@
 package com.QuickPoll.Quick.Poll.domain;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Poll {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "POLL_ID")
     private Long id;
-    private String question;
-    private String options;
-    private String value;
 
-    public Poll(Long id, String question, String options, String value) {
-        this.id = id;
-        this.question = question;
-        this.options = options;
-        this.value = value;
-    }
+    @Column(name = "QUESTION")
+    private String question;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "POLL_ID")
+    @OrderBy
+    private Set<Options> options;
 
     public Long getId() {
         return id;
@@ -30,20 +34,12 @@ public class Poll {
         this.question = question;
     }
 
-    public String getOptions() {
+    public Set<Options> getOptions() {
         return options;
     }
 
-    public void setOptions(String options) {
+    public void setOptions(Set<Options> options) {
         this.options = options;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     @Override
@@ -51,8 +47,7 @@ public class Poll {
         return "Poll{" +
                 "id=" + id +
                 ", question='" + question + '\'' +
-                ", options='" + options + '\'' +
-                ", value='" + value + '\'' +
+                ", options=" + options +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.persistence.*;
 import javax.swing.text.html.Option;
 
+@Entity
 public class Vote {
 
     @Id
